@@ -1,10 +1,6 @@
 @startuml
 
 package "Core" {
-    interface "IUpdateService" as US    
-    interface "IVersionSource" as VS 
-    interface "IVersionDownloader" as VD
-
     component [VersionSource]
     component [CurrentVersionDetecter]
     component [Downloader]   
@@ -12,16 +8,14 @@ package "Core" {
     component [Facade and Core] as Facade    
 }
 
-US - [Facade]
-VS - [VersionSource]
-VD - [Downloader]
+[Facade] --> [VersionSource]
+[Facade] --> [Downloader]
 
-[Facade] ..> VS
-[Facade] ..> VD
-
+[VersionSource] --> [VersionSourceParser]
+[Facade] --> [CurrentVersionDetecter]
 
 component [UI]
-[UI] ..> US
+[UI] --> [Facade]
 
 
 
