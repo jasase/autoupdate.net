@@ -60,5 +60,12 @@ UpdateService --> "1..*" IVersionSource
 UpdateService --> ICurrentVersionDeterminer
 UpdateService ..> IVersionDownloader : use
 
+interface IUserInteraction {
+    NewVersionAvailable(handle : UpdateVersionUserInteractionHandle)
+}
+class UpdateVersionUserInteractionHandle {
+
+}
+
 
 @enduml
