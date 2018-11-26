@@ -8,6 +8,6 @@ namespace AutoUpdate.Core.Tests
     {
         [TestMethod]
         public void Should_be_run_without_failure()
-        { }    
+        { }        
     }
 }
