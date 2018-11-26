@@ -1,12 +1,12 @@
 @startuml
 
-interface IUpdateService {
+interface IUpdaterManagementService {
     
 }
-class UpdateService {
+class UpdaterManagementService {
     
 }
-IUpdateService <|.. UpdateService
+IUpdaterManagementService <|.. UpdaterManagementService
 
 
 interface ICurrentVersionDeterminer {
@@ -66,6 +66,7 @@ interface IUserInteraction {
 class UpdateVersionUserInteractionHandle {
 
 }
+UpdaterManagementService ..> IUserInteraction : call
 
 
 @enduml
