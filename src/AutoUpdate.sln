@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate.Core", "AutoUpdate.Core\AutoUpdate.Core.csproj", "{5C7975AE-D120-441F-968E-8150FE4F6C71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.Core", "AutoUpdate.Core\AutoUpdate.Core.csproj", "{5C7975AE-D120-441F-968E-8150FE4F6C71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
