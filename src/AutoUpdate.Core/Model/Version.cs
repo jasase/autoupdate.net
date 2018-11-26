@@ -11,7 +11,7 @@
         {
             ChangeLog = string.Empty;
             Mandatory = true;
-            Version = new VersionNumber();
+            VersionNumber = new VersionNumber();
         }
     }
 }
