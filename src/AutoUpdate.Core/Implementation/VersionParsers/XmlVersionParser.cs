@@ -9,7 +9,7 @@ namespace AutoUpdate.Core.Implementation.VersionParsers
     {
         public IEnumerable<Version> ParseVersion(Stream content)
         {
-            throw new NotImplementedException();
+            yield break;
         }
     }
 }
