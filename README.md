@@ -1,3 +1,6 @@
+
+[![Build status](https://ci.appveyor.com/api/projects/status/0vovhds0yx92dtlj?svg=true)](https://ci.appveyor.com/project/jasase/autoupdate-net)
+
 # Introduction
 
 AutoUpdate.Net should become a full extensiable framework for auto updating .Net application regardless of the technology (WPF, WinForms, .Net Core).
