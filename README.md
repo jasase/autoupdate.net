@@ -1,5 +1,5 @@
 
-[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/0vovhds0yx92dtlj?svg=true)](https://ci.appveyor.com/project/jasase/autoupdate-net)
 
 # Introduction
 
