@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoUpdate.Core.Abstraction;
 
 namespace AutoUpdate.Core.Implementation.VersionSources
 {
-    class HttpVersionSource
+    public class HttpVersionSource : VersionSourceWithParser
     {
+        public HttpVersionSource(IVersionParser parser)
+            : base(parser)
+        { }
     }
 }
