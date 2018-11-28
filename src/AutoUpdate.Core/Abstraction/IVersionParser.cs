@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using AutoUpdate.Core.Model;
 
 namespace AutoUpdate.Core.Abstraction
 {

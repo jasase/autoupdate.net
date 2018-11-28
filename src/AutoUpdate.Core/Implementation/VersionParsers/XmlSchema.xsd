@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ParserVersionDefinition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Version">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VersionNumber" type="xs:string" />
+              <xs:element name="ChangeLog" type="xs:string" />
+              <xs:element name="Mandatory" type="xs:boolean" />
+              <xs:element name="SourceType" type="xs:string" />
+              <xs:element name="SourcePath" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
