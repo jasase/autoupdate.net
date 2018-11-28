@@ -24,8 +24,8 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
             first.VersionNumber.Build.Should().Be(5);
 
             first.Source.Should().NotBeNull();
-            first.Source.Should().BeOfType<HttpVersionSource>();
-            ((HttpVersionSource) first.Source).Url.Should().Be("http://google.de");
+            first.Source.Should().BeOfType<HttpVersionDownloadSource>();
+            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de");
 
             var second = Result[1];
             second.ChangeLog.Should().Be("Example change log2");
@@ -38,8 +38,8 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
             second.VersionNumber.Build.Should().Be(9);
 
             second.Source.Should().NotBeNull();
-            second.Source.Should().BeOfType<FileVersionSource>();
-            ((FileVersionSource) second.Source).FilePath.Should().Be(@"C:\File\test.txt");
+            second.Source.Should().BeOfType<FileVersionDownloadSource>();
+            ((FileVersionDownloadSource) second.Source).FilePath.Should().Be(@"C:\File\test.txt");
         }
 
         public override string XmlContent => @"<?xml version=""1.0"" encoding=""utf-8"" ?>

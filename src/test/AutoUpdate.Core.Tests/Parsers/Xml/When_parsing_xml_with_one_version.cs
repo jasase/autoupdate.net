@@ -26,8 +26,8 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
             first.VersionNumber.Build.Should().Be(5);
 
             first.Source.Should().NotBeNull();
-            first.Source.Should().BeOfType<HttpVersionSource>();
-            ((HttpVersionSource) first.Source).Url.Should().Be("http://google.de");
+            first.Source.Should().BeOfType<HttpVersionDownloadSource>();
+            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de");
         }
 
         public override string XmlContent => @"<?xml version=""1.0"" encoding=""utf-8"" ?>

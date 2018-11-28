@@ -12,22 +12,22 @@ class VersionNumber {
     Build : int
 }
 
-abstract class VersionSource {
+abstract class VersionDownloadSource {
 
 }
 
-abstract class HttpVersionSource {
+abstract class HttpVersionDownloadSource {
     url : string
 }
 
-abstract class FileSystemVersionSource {
+abstract class FileSystemVersionDownloadSource {
     path : string
 }
 
-VersionSource <|-- HttpVersionSource
-VersionSource <|-- FileSystemVersionSource
+VersionDownloadSource <|-- HttpVersionDownloadSource
+VersionDownloadSource <|-- FileSystemVersionDownloadSource
 
 Version --> "1" VersionNumber
-Version --> "1" VersionSource
+Version --> "1" VersionDownloadSource
 
 @enduml

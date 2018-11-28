@@ -69,20 +69,20 @@ namespace AutoUpdate.Core.Implementation.VersionParsers
             }
         }
 
-        private VersionSource DetermineSource(ParserVersion cur)
+        private VersionDownloadSource DetermineSource(ParserVersion cur)
         {
             var sourceType = (cur.SourceType ?? string.Empty).ToUpperInvariant();
 
             if (sourceType == XML_SOURCE_TYPE_HTTP)
             {
-                return new HttpVersionSource
+                return new HttpVersionDownloadSource
                 {
                     Url = cur.SourcePath
                 };
             }
             else if (sourceType == XML_SOURCE_TYPE_FILE)
             {
-                return new FileVersionSource
+                return new FileVersionDownloadSource
                 {
                     FilePath = cur.SourcePath
                 };
