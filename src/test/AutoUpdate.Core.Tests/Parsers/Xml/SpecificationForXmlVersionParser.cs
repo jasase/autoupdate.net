@@ -7,7 +7,7 @@ using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
 using Microsoft.Extensions.Logging;
 
-namespace AutoUpdate.Core.Tests.Parsers
+namespace AutoUpdate.Core.Tests.Parsers.Xml
 {
     public abstract class SpecificationForXmlVersionParser : Specification
     {

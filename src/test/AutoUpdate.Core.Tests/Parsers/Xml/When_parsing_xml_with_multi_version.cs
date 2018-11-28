@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AutoUpdate.Core.Tests.Parsers
+namespace AutoUpdate.Core.Tests.Parsers.Xml
 {
     [TestClass]
     public class When_parsing_xml_with_multi_version : SpecificationForXmlVersionParser
