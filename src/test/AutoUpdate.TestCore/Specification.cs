@@ -14,8 +14,9 @@ namespace AutoUpdate.TestCore
         public ILoggerFactory LoggerFactory => _loggerFactory;
         public ILogger Logger { get; private set; }
         public Exception ThrownException { get; private set; }
+        public bool HasThrownException => ThrownException != null;
 
-        public virtual bool ExpectException => false;
+        public virtual bool RaiseExceptionsInBecause => true;
 
         public Specification()
         {
@@ -41,7 +42,7 @@ namespace AutoUpdate.TestCore
             catch (Exception ex)
             {
                 ThrownException = ex;
-                if (!ExpectException) throw ex;
+                if (RaiseExceptionsInBecause) throw ex;
             }
             Logger.LogDebug("Finished [Because]");
         }

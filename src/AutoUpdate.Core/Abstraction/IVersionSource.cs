@@ -1,4 +1,4 @@
-﻿using System;
+﻿using AutoUpdate.Core.Model;
 
 namespace AutoUpdate.Core.Abstraction
 {
