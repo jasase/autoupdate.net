@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoUpdate.Core.Model;
 
 namespace AutoUpdate.Core.Abstraction
 {
-    interface ICurrentVersionDeterminer
+    public interface ICurrentVersionDeterminer
     {
+        VersionNumber DetermineCurrentVersionNumber();
     }
 }

@@ -22,8 +22,8 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
             first.VersionNumber.Should().NotBeNull();
             first.VersionNumber.Major.Should().Be(2);
             first.VersionNumber.Minor.Should().Be(3);
-            first.VersionNumber.Revision.Should().Be(4);
-            first.VersionNumber.Build.Should().Be(5);
+            first.VersionNumber.Build.Should().Be(4);
+            first.VersionNumber.Revision.Should().Be(5);
 
             first.Source.Should().NotBeNull();
             first.Source.Should().BeOfType<HttpVersionDownloadSource>();

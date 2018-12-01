@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AutoUpdate.Core\AutoUpdate.Core.csproj" />
     <ProjectReference Include="..\AutoUpdate.TestCore\AutoUpdate.TestCore.csproj" />
+    <ProjectReference Include="..\AutoUpdate.TestMock.Assembly\AutoUpdate.TestMock.Assembly.csproj" />
   </ItemGroup>
 
 </Project>
