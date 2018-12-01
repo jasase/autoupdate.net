@@ -1,7 +1,9 @@
 @startuml
 
 interface IUpdaterManagementService {
-    
+    Start()
+    SearchVersion()   : UpdateVersionUserInteractionHandle  
+    ~ UpdateToVersion(handle : UpdateVersionUserInteractionHandle)   
 }
 class UpdaterManagementService {
     
@@ -56,17 +58,24 @@ IVersionParser <|.. JsonVersionParser
 HttpVersionSource --> IVersionParser
 FileVersionSource --> IVersionParser
 
-UpdateService --> "1..*" IVersionSource
-UpdateService --> ICurrentVersionDeterminer
-UpdateService ..> IVersionDownloader : use
 
 interface IUserInteraction {
     NewVersionAvailable(handle : UpdateVersionUserInteractionHandle)
 }
-class UpdateVersionUserInteractionHandle {
-
+class UpdateVersionUserInteractionHandle {    
+    HasNewVersion : bool
+    NewVersion : Version    
+    
+    UpdateToVersion()
 }
+
+UpdateVersionUserInteractionHandle ..> IUpdaterManagementService : use
+
+UpdaterManagementService --> "1..*" IVersionSource
+UpdaterManagementService --> ICurrentVersionDeterminer
+UpdaterManagementService ..> IVersionDownloader : use
 UpdaterManagementService ..> IUserInteraction : call
+
 
 
 @enduml
