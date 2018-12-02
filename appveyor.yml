@@ -14,4 +14,4 @@ test_script:
 - cmd: >-
     dir 
 
-    dotnet test --test-adapter-path:. --logger:Appveyor
+    dotnet test ~\test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --configuration Debug --no-build --test-adapter-path:. --logger:Appveyor
