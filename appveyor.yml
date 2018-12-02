@@ -13,4 +13,5 @@ build:
 test_script:
 - cmd: >-
     dir 
+
     dotnet test --test-adapter-path:. --logger:Appveyor
