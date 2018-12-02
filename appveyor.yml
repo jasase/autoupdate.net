@@ -11,4 +11,6 @@ build:
   verbosity: normal
 
 test_script:
-- cmd: dotnet test --test-adapter-path:. --logger:Appveyor
+- cmd: >-
+    dir 
+    dotnet test --test-adapter-path:. --logger:Appveyor
