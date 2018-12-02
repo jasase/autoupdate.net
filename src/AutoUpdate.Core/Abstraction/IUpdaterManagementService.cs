@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AutoUpdate.Core.Abstraction
+﻿namespace AutoUpdate.Core.Abstraction
 {
-    class IUpdaterManagementService
+    public interface IUpdaterManagementService
     {
+        void Start();
+
+        IUpdateVersionHandle SearchVersion();
     }
 }
