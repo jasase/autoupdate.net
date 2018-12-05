@@ -2,7 +2,6 @@
 using System.Net.Http;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.Builders;
-using AutoUpdate.Core.Implementation.UpdaterManagementService;
 using AutoUpdate.TestCore;
 using AutoUpdate.TestCore.Modules;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

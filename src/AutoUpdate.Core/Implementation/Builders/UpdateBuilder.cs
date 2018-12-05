@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Core.Implementation.UpdaterManagementServices;
 
 namespace AutoUpdate.Core.Implementation.Builders
 {
@@ -38,9 +39,6 @@ namespace AutoUpdate.Core.Implementation.Builders
         }
 
         public IUpdaterManagementService Build()
-        {
-            var t = 0;
-            throw new NotImplementedException();
-        }
+            => new UpdaterManagementService();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AutoUpdate.Core.Model
 {
-    public class VersionNumber
+    public class VersionNumber 
     {
         public int Major { get; set; }
         public int Minor { get; set; }
