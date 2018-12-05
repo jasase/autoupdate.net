@@ -2,8 +2,7 @@
 
 interface IUpdaterManagementService {
     Start()
-    SearchVersion()   : UpdateVersionUserInteractionHandle  
-    ~ UpdateToVersion(handle : UpdateVersionUserInteractionHandle)   
+    SearchVersion()   : UpdateVersionUserInteractionHandle      
 }
 class UpdaterManagementService {
     
