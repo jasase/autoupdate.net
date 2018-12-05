@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoUpdate.Core.Model;
+﻿using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
 using FluentAssertions;
 
@@ -24,10 +21,13 @@ namespace AutoUpdate.Core.Tests.Model.VersionNumbers
             (a == b).Should().BeFalse();
 
             a.CompareTo(b).Should().BeGreaterThan(0);
-            b.CompareTo(a).Should().BeLessThan(0);
-
             a.Equals(b).Should().BeFalse();
-            b.Equals(a).Should().BeFalse();
+
+            if (b != null)
+            {
+                b.CompareTo(a).Should().BeLessThan(0);
+                b.Equals(a).Should().BeFalse();
+            }
         }
 
         public void ShouldBeEqual(VersionNumber a, VersionNumber b)
@@ -42,10 +42,13 @@ namespace AutoUpdate.Core.Tests.Model.VersionNumbers
             (a == b).Should().BeFalse();
 
             a.CompareTo(b).Should().Be(0);
-            b.CompareTo(a).Should().Be(0);
-
             a.Equals(b).Should().BeTrue();
-            b.Equals(a).Should().BeTrue();
+
+            if (b != null)
+            {
+                b.CompareTo(a).Should().Be(0);
+                b.Equals(a).Should().BeTrue();
+            }
         }
     }
 }

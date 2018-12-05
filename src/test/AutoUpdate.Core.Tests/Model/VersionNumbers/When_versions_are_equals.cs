@@ -25,10 +25,5 @@ namespace AutoUpdate.Core.Tests.Model.VersionNumbers
         public void Should_be_equal_4()
             => ShouldBeEqual(new VersionNumber(),
                              new VersionNumber());
-
-        [TestMethod]
-        public void Should_be_equal_null()
-            => ShouldBeEqual(null,
-                             null);
     }
 }
