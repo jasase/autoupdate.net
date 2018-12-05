@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Tests.Sources.Http
 {
-    public abstract class SpecificationForHttpVersionSource : Specification, IHttpClientFactory
+    public abstract class SpecificationForHttpVersionSource : Specification
     {
         public IVersionSource Sut { get; private set; }
         public Version[] Result { get; private set; }
@@ -26,15 +26,12 @@ namespace AutoUpdate.Core.Tests.Sources.Http
             }
 
             var parser = new XmlVersionParser(LoggerFactory.CreateLogger<XmlVersionParser>());
-            Sut = new HttpVersionSource(LoggerFactory, parser, this);
+            Sut = new HttpVersionSource(LoggerFactory, parser, Module<HttpServerTestModule>());
         }
 
         public abstract string ProviderServerContent();
 
         public override void Because()
             => Result = Sut.LoadAvailableVersions();
-
-        public HttpClient CreateClient()
-            => Module<HttpServerTestModule>().HttpClient;
     }
 }

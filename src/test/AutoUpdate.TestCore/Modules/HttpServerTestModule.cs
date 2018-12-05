@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using AutoUpdate.Core.Implementation.VersionSources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace AutoUpdate.TestCore.Modules
 {
-    public class HttpServerTestModule : ITestModule
+    public class HttpServerTestModule : ITestModule, IHttpClientFactory
     {
         private TestServer _server;
         private Dictionary<string, ServerContent> _content;
@@ -48,6 +49,9 @@ namespace AutoUpdate.TestCore.Modules
             var contentDto = new ServerContent(path, content);
             _content[contentDto.Path] = contentDto;
         }
+
+        public HttpClient CreateClient()
+            => HttpClient;
 
         class ServerContent : IFileInfo
         {
