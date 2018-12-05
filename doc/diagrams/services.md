@@ -60,16 +60,17 @@ FileVersionSource --> IVersionParser
 
 
 interface IUserInteraction {
-    NewVersionAvailable(handle : UpdateVersionUserInteractionHandle)
+    NewVersionAvailable(handle : IUpdateVersionHandle)
 }
-class UpdateVersionUserInteractionHandle {    
+interface IUpdateVersionHandle {    
     HasNewVersion : bool
     NewVersion : Version    
     
     UpdateToVersion()
 }
 
-UpdateVersionUserInteractionHandle ..> IUpdaterManagementService : use
+IUpdateVersionHandle ..> IUpdaterManagementService : create
+IUpdateVersionHandle <.. IUserInteraction : use
 
 UpdaterManagementService --> "1..*" IVersionSource
 UpdaterManagementService --> ICurrentVersionDeterminer

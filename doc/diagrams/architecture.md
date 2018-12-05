@@ -5,8 +5,19 @@ package "Core" {
     component [CurrentVersionDetecter]
     component [Downloader]   
     component [VersionSourceParser] 
-    component [Facade and Core] as Facade    
+    component [UpdaterManagementService] as Facade    
 }
+
+package "Updater" {
+    component [UpdaterCore]
+    component [FileCopyUpdater]
+    component [MsiInstallerUpdater]
+}
+
+[UpdaterCore] --> [FileCopyUpdater]
+[UpdaterCore] --> [MsiInstallerUpdater]
+
+[Facade] ..> [UpdaterCore] : IPC
 
 [Facade] --> [VersionSource]
 [Facade] --> [Downloader]
