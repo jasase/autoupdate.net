@@ -28,7 +28,7 @@ namespace AutoUpdate.Core.Tests.UpdaterManagementServices
                       .UseHttpSource(Module<HttpServerTestModule>()).UseDefaultXmlParser()
                       .UseAssemblyCurrentVersionDeterminer<MockTestClass>();
 
-        [TestMethod]
+        [TestMethod,Ignore]
         public void Should_have_one_version()
         {
             Handles.Should().HaveCount(1);
