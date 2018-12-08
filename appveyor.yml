@@ -1,22 +1,16 @@
-version: 1.0.{build}
+version: 0.0.{build}
 image: Visual Studio 2017
 before_build:
-- cmd: >-
-    cd src
+  - cmd: cd src
+  
 
-    dotnet restore
-
-build:
-  publish_nuget: true
-  publish_nuget_symbols: true
-  parallel: true
-  verbosity: normal
+build_script:
+  - cmd: dotnet restore
+  - cmd: dotnet build  
+  - cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --configuration Release --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%
 
 test_script:
-- cmd: >-
-    dir 
-
-    dotnet test test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --configuration Debug --no-build --test-adapter-path:. --logger:Appveyor
+- cmd:  dotnet test test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --configuration Debug --no-build --test-adapter-path:. --logger:Appveyor
 
 deploy:
 - provider: NuGet
