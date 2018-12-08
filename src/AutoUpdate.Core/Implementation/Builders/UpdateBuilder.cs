@@ -1,41 +1,56 @@
 ﻿using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices;
+using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
+using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.Builders
 {
     public class UpdateBuilder
     {
+        private UpdaterManagementServiceConfiguration _configuration;
+        internal ILoggerFactory LoggerFactory { get; }
+
+        public UpdateBuilder()
+            : this(new LoggerFactory())
+        { }
+
+        public UpdateBuilder(ILoggerFactory loggerFactory)
+        {
+            _configuration = new UpdaterManagementServiceConfiguration();
+            LoggerFactory = loggerFactory;
+        }
+
         public UpdateBuilder ConfigureOneTimeCheck()
         {
-            var t = 0;
+            _configuration.CheckInterval = new UpdaterOneTimeCheckIntervalConfiguration();
             return this;
         }
 
-        public UpdateBuilder ConfigureIntervalCheck()
-        {
-            var t = 0;
-            return this;
-        }
+        //public UpdateBuilder ConfigureIntervalCheck()
+        //{
+        //    _configuration.CheckInterval = new UpdaterPeriodCheckIntervalConfiguration();
+        //    return this;
+        //}
 
         public UpdateBuilder UseSource(IVersionSource source)
         {
-            var t = 0;
+            _configuration.VersionSource = source;
             return this;
         }
 
         public UpdateBuilder UseCurrentVersionDetermine(ICurrentVersionDeterminer currentVersionDeterminer)
         {
-            var t = 0;
+            _configuration.CurrentVersionDeterminer = currentVersionDeterminer;
             return this;
         }
 
         public UpdateBuilder UseUserInteraction(IUserInteraction userInteractionHandle)
         {
-            var t = 0;
+            _configuration.UserInteraction.Add(userInteractionHandle);
             return this;
         }
 
         public IUpdaterManagementService Build()
-            => new UpdaterManagementService(null);
+            => new UpdaterManagementService(_configuration);
     }
 }

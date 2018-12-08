@@ -32,9 +32,13 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configuration
             {
                 return UpdaterManagementServiceConfigurationValidationMessage.CreateNotValid("CheckInterval configuration not set");
             }
-            //TODO Check CheckInterval Configuration
 
-
+            var subValidate = CheckInterval.Validate();
+            if (!subValidate.Valid)
+            {
+                return subValidate;
+            }
+            
             return UpdaterManagementServiceConfigurationValidationMessage.CreateValid();
         }
     }

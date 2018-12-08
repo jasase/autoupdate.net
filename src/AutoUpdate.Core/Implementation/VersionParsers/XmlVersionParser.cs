@@ -17,11 +17,11 @@ namespace AutoUpdate.Core.Implementation.VersionParsers
         private readonly Regex _versionNumberRegex;
         private readonly ILogger _logger;
 
-        public XmlVersionParser(ILogger logger)
+        public XmlVersionParser(ILoggerFactory loggerFactory)
         {
             _serializer = new XmlSerializer(typeof(ParserVersionDefinition));
             _versionNumberRegex = new Regex(@"^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$");
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<XmlVersionParser>();
         }
 
         public IEnumerable<Version> ParseVersion(Stream content)

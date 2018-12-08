@@ -1,5 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
+using AutoUpdate.Core.Implementation.CurrentVersionDeterminers;
 
 namespace AutoUpdate.Core.Implementation.Builders
 {
@@ -7,14 +7,11 @@ namespace AutoUpdate.Core.Implementation.Builders
     {
         public static UpdateBuilder UseAssemblyCurrentVersionDeterminer(this UpdateBuilder updateBuilder, Assembly assembly)
         {
-            var t = 0;
-            throw new NotImplementedException();
+            updateBuilder.UseCurrentVersionDetermine(new AssemblyCurrentVersionDeterminer(assembly));
+            return updateBuilder;
         }
 
         public static UpdateBuilder UseAssemblyCurrentVersionDeterminer<TType>(this UpdateBuilder updateBuilder)
-        {
-            var t = 0;
-            throw new NotImplementedException();
-        }
+            => UseAssemblyCurrentVersionDeterminer(updateBuilder, typeof(TType).Assembly);
     }
 }

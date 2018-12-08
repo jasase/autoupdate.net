@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.Builders;
@@ -36,7 +38,25 @@ namespace AutoUpdate.Core.Tests.UpdaterManagementServices
         }
 
         public override void Because()
-            => Sut.Start();
+        {
+            Sut.Start();
+            WaitUntilFinished(Debugger.IsAttached ? TimeSpan.FromMinutes(5) : TimeSpan.FromSeconds(5));
+        }
+
+        protected void WaitUntilFinished(TimeSpan maxWait)
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            while (Sut.IsActive)
+            {
+                if (stopWatch.Elapsed > maxWait)
+                {
+                    Assert.Fail("Max wait time for UpdaterManagementService reached");
+                }
+            }
+        }
+
 
         public void NewVersionAvailable(IUpdateVersionHandle handle)
             => Handles.Add(handle);

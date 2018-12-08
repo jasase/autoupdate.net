@@ -1,48 +1,59 @@
 ﻿using System;
 using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Core.Implementation.VersionParsers;
 using AutoUpdate.Core.Implementation.VersionSources;
 
 namespace AutoUpdate.Core.Implementation.Builders
 {
     public static class UpdateBuilderSourceExtensions
     {
-        public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, string url)
-        {
-            var t = 0;
-            return new UpdateBuilderSourceParser();
-        }
+        //public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, string url)
+        //{
+        //    var t = 0;
+        //    return new UpdateBuilderSourceParser();
+        //}
 
         public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, IHttpClientFactory httpClientFactory)
-        {
-            var t = 0;
-            return new UpdateBuilderSourceParser();
-        }
+            => new UpdateBuilderSourceParser(updateBuilder,
+                                             p => new HttpVersionSource(updateBuilder.LoggerFactory,
+                                                                        p,
+                                                                        httpClientFactory)
+                                             );
 
-        public static UpdateBuilderSourceParser UseFileSource(this UpdateBuilder updateBuilder, string url)
-        {
-            var t = 0;
-            return new UpdateBuilderSourceParser();
-        }
+        //public static UpdateBuilderSourceParser UseFileSource(this UpdateBuilder updateBuilder, string url)
+        //{
+
+        //    return new UpdateBuilderSourceParser(updateBuilder, );
+        //}
     }
 
     public class UpdateBuilderSourceParser
     {
-        public UpdateBuilder UseDefaultXmlParser()
+        private readonly UpdateBuilder _updateBuilder;
+        private readonly Func<IVersionParser, IVersionSource> _creator;
+
+        public UpdateBuilderSourceParser(UpdateBuilder updateBuilder, Func<IVersionParser, IVersionSource> creator)
         {
-            var t = 0;
-            throw new NotImplementedException();
+            _updateBuilder = updateBuilder;
+            _creator = creator;
         }
 
-        public UpdateBuilder UseDefaultJsonParser()
+        public UpdateBuilder UseDefaultXmlParser()
         {
-            var t = 0;
-            throw new NotImplementedException();
+            _updateBuilder.UseSource(_creator(new XmlVersionParser(_updateBuilder.LoggerFactory)));
+            return _updateBuilder;
         }
+
+        //public UpdateBuilder UseDefaultJsonParser()
+        //{
+        //    throw new NotImplementedException();
+        //    return _updateBuilder;
+        //}
 
         public UpdateBuilder UseParser(IVersionParser versionParser)
         {
-            var t = 0;
-            throw new NotImplementedException();
+            _updateBuilder.UseSource(_creator(versionParser));
+            return _updateBuilder;
         }
     }
 }

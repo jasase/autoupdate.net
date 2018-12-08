@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.VersionParsers;
 using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
-using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Tests.Parsers.Xml
 {
@@ -20,7 +18,7 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
         {
             base.EstablishContext();
 
-            Sut = new XmlVersionParser(LoggerFactory.CreateLogger<XmlVersionParser>());
+            Sut = new XmlVersionParser(LoggerFactory);
 
         }
 

@@ -25,7 +25,7 @@ namespace AutoUpdate.Core.Tests.Sources.Http
                 module.AddContent("/version", serverContent);
             }
 
-            var parser = new XmlVersionParser(LoggerFactory.CreateLogger<XmlVersionParser>());
+            var parser = new XmlVersionParser(LoggerFactory);
             Sut = new HttpVersionSource(LoggerFactory, parser, Module<HttpServerTestModule>());
         }
 
