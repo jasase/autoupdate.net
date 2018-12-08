@@ -7,6 +7,8 @@ before_build:
     dotnet restore
 
 build:
+  publish_nuget: true
+  publish_nuget_symbols: true
   parallel: true
   verbosity: normal
 
