@@ -15,3 +15,11 @@ test_script:
     dir 
 
     dotnet test test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --configuration Debug --no-build --test-adapter-path:. --logger:Appveyor
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: +yeoLimNe2kLA4Bw/Yl/1/u2V4gddgzl7z8QnFQd8SDWRIqsUBBgm7fafPbt98qg
+  skip_symbols: true
+  on:
+    branch: master
