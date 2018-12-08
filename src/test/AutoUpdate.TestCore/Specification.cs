@@ -30,8 +30,8 @@ namespace AutoUpdate.TestCore
             _loggerFactory.AddConsole(LogLevel.Trace, true);
             Logger = _loggerFactory.CreateLogger<Specification>();
 
-            Logger.LogInformation(@"----------------------------------------------------------------------------------------------------------------------------------------------------
-Starting Test {0}", GetType().FullName);
+            Logger.LogInformation(@"Starting Test {0}
+--------------------------------------------------------------------------------------------------------", GetType().FullName);
 
             Logger.LogDebug("Starting [Establishing context]");
             EstablishContext();
@@ -51,7 +51,7 @@ Starting Test {0}", GetType().FullName);
 
 
             Logger.LogDebug(@"Finished Test {0}
-----------------------------------------------------------------------------------------------------------------------------------------------------", GetType().FullName);
+--------------------------------------------------------------------------------------------------------", GetType().FullName);
         }
 
         public virtual void EstablishContext()
