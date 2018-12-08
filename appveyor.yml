@@ -5,12 +5,12 @@ before_build:
   
 
 build_script:
-  - cmd: dotnet restore --verbosity normal
-  - cmd: dotnet build --configuration Release --verbosity normal
-  - cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --verbosity normal --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%
+  - cmd: dotnet restore
+  - cmd: dotnet build --configuration Release
+  - cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%
 
 test_script:
-- cmd:  dotnet test test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --verbosity normal --configuration Debug --no-build --test-adapter-path:. --logger:Appveyor
+- cmd:  dotnet test test\AutoUpdate.Core.Tests\AutoUpdate.Core.Tests.csproj --configuration Release --no-build --test-adapter-path:. --logger:Appveyor
 
 deploy:
 - provider: NuGet
