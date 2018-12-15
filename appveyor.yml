@@ -22,4 +22,4 @@ deploy:
   artifact: /.*\.nupkg/
   skip_symbols: true
   on:
-    branch: buildtest
+    branch: master
