@@ -1,5 +1,5 @@
 @startuml
-!include diagrams/service_VersionSource.md
+!include service_VersionSource.md
 
 
 interface IUpdaterManagementService {
