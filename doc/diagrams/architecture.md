@@ -6,21 +6,21 @@ package "Core" {
     component [Downloader]   
     component [VersionSourceParser] 
     component [UpdaterManagementService] as Facade    
+    component [UpdatePreparationSteps] 
 }
 
-package "Updater" {
-    component [UpdaterCore]
-    component [FileCopyUpdater]
-    component [MsiInstallerUpdater]
+package "UpdateExecuter" {
+    component [Executer]
+    component [ExecuterSteps]    
 }
 
-[UpdaterCore] --> [FileCopyUpdater]
-[UpdaterCore] --> [MsiInstallerUpdater]
+[Executer] --> [ExecuterSteps]
 
-[Facade] ..> [UpdaterCore] : IPC
+[Facade] ..> [Executer] : IPC
 
 [Facade] --> [VersionSource]
 [Facade] --> [Downloader]
+[Facade] --> [UpdatePreparationSteps]
 
 [VersionSource] --> [VersionSourceParser]
 [Facade] --> [CurrentVersionDetecter]

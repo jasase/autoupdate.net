@@ -1,11 +1,13 @@
 @startuml
+!include diagrams/service_VersionSource.md
+
 
 interface IUpdaterManagementService {
     Start()
     SearchVersion()   : UpdateVersionUserInteractionHandle      
 }
 class UpdaterManagementService {
-    
+    ExecuteUpdate(handle : UpdateVersionHandle) 
 }
 IUpdaterManagementService <|.. UpdaterManagementService
 
@@ -29,33 +31,6 @@ IVersionDownloader <|.. HttpVersionDownloader
 IVersionDownloader <|.. DoNothingVersionDownloader
 
 
-interface IVersionSource {
-    LoadAvailableVersion() : Version[]
-}
-class HttpVersionSource { 
-}
-class FileVersionSource { 
-}
-class SpecialVersionSource { 
-}
-IVersionSource <|.. HttpVersionSource
-IVersionSource <|.. FileVersionSource
-IVersionSource <|.. SpecialVersionSource
-
-
-interface IVersionParser {
-    ParseVersions(content : string) : Version[]
-}
-class XmlVersionParser { 
-}
-class JsonVersionParser { 
-}
-IVersionParser <|.. XmlVersionParser
-IVersionParser <|.. JsonVersionParser
-
-
-HttpVersionSource --> IVersionParser
-FileVersionSource --> IVersionParser
 
 
 interface IUserInteraction {
@@ -67,8 +42,13 @@ interface IUpdateVersionHandle {
     
     UpdateToVersion()
 }
+class UpdateVersionHandle {
 
-IUpdateVersionHandle ..> IUpdaterManagementService : create
+}
+
+IUpdateVersionHandle <|.. UpdateVersionHandle
+UpdateVersionHandle <.. UpdaterManagementService : create
+UpdateVersionHandle --> UpdaterManagementService
 IUpdateVersionHandle <.. IUserInteraction : use
 
 UpdaterManagementService --> "1..*" IVersionSource
@@ -76,6 +56,8 @@ UpdaterManagementService --> ICurrentVersionDeterminer
 UpdaterManagementService ..> IVersionDownloader : use
 UpdaterManagementService ..> IUserInteraction : call
 
+interface IUpdatePrepartionStep {
 
+}
 
 @enduml
