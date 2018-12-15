@@ -11,6 +11,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageProjectUrl>https://github.com/jasase/autoupdate.net</PackageProjectUrl>
     <PackageTags>Autoupdate</PackageTags>
+    <PackageId>AutoUpdate.Net.Core</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
