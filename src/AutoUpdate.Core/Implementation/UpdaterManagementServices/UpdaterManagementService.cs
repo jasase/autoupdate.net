@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
+using AutoUpdate.Core.Model.Executor;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 {
@@ -12,6 +15,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
         private readonly IVersionSource _versionSource;
         private readonly ICurrentVersionDeterminer _currentVersionDeterminer;
         private readonly IUserInteraction[] _userInteractions;
+        private readonly IUpdatePreparationStep[] _prepareSteps;
         private readonly UpdaterManagementServiceCheckStrategy _updaterCheckStrategy;
         private readonly SemaphoreSlim _semaphore;
 
@@ -24,6 +28,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
             _versionSource = configuration.VersionSource;
             _currentVersionDeterminer = configuration.CurrentVersionDeterminer;
             _userInteractions = configuration.UserInteraction.ToArray();
+            _prepareSteps = configuration.UpdatePreparationSteps.ToArray();
 
             _updaterCheckStrategy = configuration.CheckInterval.Accept(new SelectStrategyVisitor(this));
         }
@@ -64,6 +69,37 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                     _semaphore.Release();
                 }
             });
+        }
+
+        internal void UpdateVersion(UpdateVersionHandle handle)
+        {
+            if (!handle.HasNewVersion) return;
+
+            var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+            updateFolder.Create();
+
+            var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder);
+            var executorConfiguration = new ExecutorConfiguration();
+
+            executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
+                                                       .ToArray();
+
+            CopyAndStartExecutor(workspace, executorConfiguration);
+        }
+
+        private void CopyAndStartExecutor(UpdatePreparationWorkspaceInformation workspace,
+                                          ExecutorConfiguration config)
+        {
+            var executorFile = new FileInfo(Path.Combine(workspace.WorkingDirectory.FullName, "Executor.exe"));
+            using (var executorStream = GetType().Assembly.GetManifestResourceStream("AutoUpdate.Core.AutoUpdate.Executor.dll"))
+            using (var destStream = executorFile.OpenWrite())
+            {
+                executorStream.CopyTo(destStream);
+            }
+
+            var startInfo = new ProcessStartInfo("dotnet", executorFile.FullName);
+
+            var result = Process.Start(startInfo);
         }
 
         class SelectStrategyVisitor : IUpdaterCheckIntervalConfigurationVisitor<UpdaterManagementServiceCheckStrategy>

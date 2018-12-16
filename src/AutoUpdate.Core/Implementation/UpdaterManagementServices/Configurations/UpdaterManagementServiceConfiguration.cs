@@ -8,11 +8,13 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configuration
         public IVersionSource VersionSource { get; set; }
         public ICurrentVersionDeterminer CurrentVersionDeterminer { get; set; }
         public List<IUserInteraction> UserInteraction { get; }
+        public List<IUpdatePreparationStep> UpdatePreparationSteps { get; }
         public UpdaterCheckIntervalConfiguration CheckInterval { get; set; }
 
         public UpdaterManagementServiceConfiguration()
         {
             UserInteraction = new List<IUserInteraction>();
+            UpdatePreparationSteps = new List<IUpdatePreparationStep>();
         }
 
 
@@ -38,7 +40,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configuration
             {
                 return subValidate;
             }
-            
+
             return UpdaterManagementServiceConfigurationValidationMessage.CreateValid();
         }
     }
