@@ -30,6 +30,9 @@ namespace AutoUpdate.TestCore
             _loggerFactory.AddConsole(LogLevel.Trace, true);
             Logger = _loggerFactory.CreateLogger<Specification>();
 
+            Logger.LogInformation(@"Starting Test {0}
+--------------------------------------------------------------------------------------------------------", GetType().FullName);
+
             Logger.LogDebug("Starting [Establishing context]");
             EstablishContext();
             Logger.LogDebug("Finished [Establishing context]");
@@ -45,6 +48,10 @@ namespace AutoUpdate.TestCore
                 if (RaiseExceptionsInBecause) throw ex;
             }
             Logger.LogDebug("Finished [Because]");
+
+
+            Logger.LogDebug(@"Finished Test {0}
+--------------------------------------------------------------------------------------------------------", GetType().FullName);
         }
 
         public virtual void EstablishContext()

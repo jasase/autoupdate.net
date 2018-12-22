@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>0.0.0.1</FileVersion>
+    <Authors>Sascha Sternheim</Authors>
+    <Company>Sascha Sternheim</Company>
+    <PackageLicenseUrl>https://github.com/jasase/autoupdate.net</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/jasase/autoupdate.net</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageProjectUrl>https://github.com/jasase/autoupdate.net</PackageProjectUrl>
+    <PackageTags>Autoupdate</PackageTags>
+    <PackageId>AutoUpdate.Net.Core</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
