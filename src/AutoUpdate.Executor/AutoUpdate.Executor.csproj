@@ -13,8 +13,4 @@
     <None Remove="publish\**" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="powershell.exe -ExecutionPolicy ByPass -File publishExecutor.ps1 &quot;$(ConfigurationName)&quot;" />
-  </Target>
-
 </Project>

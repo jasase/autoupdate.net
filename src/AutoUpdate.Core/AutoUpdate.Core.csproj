@@ -15,7 +15,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="..\ExecutorWin64.zip" Link="Excutors\ExecutorWin64.zip" />
+    <EmbeddedResource Include="..\ExecutorWin86.zip" Link="Excutors\ExecutorWin86.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Excutors\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell.exe -ExecutionPolicy ByPass -File publishExecutor.ps1 &quot;$(ConfigurationName)&quot;" />
+  </Target>
 
 </Project>
