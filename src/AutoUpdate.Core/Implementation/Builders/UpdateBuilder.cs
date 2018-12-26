@@ -1,4 +1,5 @@
-﻿using AutoUpdate.Core.Abstraction;
+﻿using System;
+using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,12 @@ namespace AutoUpdate.Core.Implementation.Builders
         public UpdateBuilder ConfigureOneTimeCheck()
         {
             _configuration.CheckInterval = new UpdaterOneTimeCheckIntervalConfiguration();
+            return this;
+        }
+
+        public UpdateBuilder ConfigureManualCheck()
+        {
+            _configuration.CheckInterval = new UpdaterManualCheckIntervalConfiguration();
             return this;
         }
 
@@ -51,6 +58,13 @@ namespace AutoUpdate.Core.Implementation.Builders
         }
 
         public IUpdaterManagementService Build()
-            => new UpdaterManagementService(_configuration);
+        {
+            var validateMessage = _configuration.Validate();
+            if (!validateMessage.Valid)
+            {
+                throw new InvalidOperationException("Configuration is not valid: " + validateMessage.Error);
+            }
+            return new UpdaterManagementService(LoggerFactory, _configuration);
+        }
     }
 }

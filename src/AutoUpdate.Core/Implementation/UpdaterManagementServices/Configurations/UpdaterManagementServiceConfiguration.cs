@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Core.Implementation.ApplicationClosers;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations
 {
@@ -7,14 +8,17 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configuration
     {
         public IVersionSource VersionSource { get; set; }
         public ICurrentVersionDeterminer CurrentVersionDeterminer { get; set; }
+        public IApplicationCloser ApplicationCloser { get; set; }
+        public UpdaterCheckIntervalConfiguration CheckInterval { get; set; }
+
         public List<IUserInteraction> UserInteraction { get; }
         public List<IUpdatePreparationStep> UpdatePreparationSteps { get; }
-        public UpdaterCheckIntervalConfiguration CheckInterval { get; set; }
 
         public UpdaterManagementServiceConfiguration()
         {
             UserInteraction = new List<IUserInteraction>();
             UpdatePreparationSteps = new List<IUpdatePreparationStep>();
+            ApplicationCloser = new DefaultApplicationCloser();
         }
 
 
@@ -33,6 +37,11 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configuration
             if (CheckInterval == null)
             {
                 return UpdaterManagementServiceConfigurationValidationMessage.CreateNotValid("CheckInterval configuration not set");
+            }
+
+            if (ApplicationCloser == null)
+            {
+                return UpdaterManagementServiceConfigurationValidationMessage.CreateNotValid("Application closer not set");
             }
 
             var subValidate = CheckInterval.Validate();

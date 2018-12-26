@@ -9,26 +9,35 @@ using System.Threading.Tasks;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using AutoUpdate.Core.Model.Executor;
+using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 {
     public class UpdaterManagementService : IUpdaterManagementService
     {
+        private readonly ILogger<UpdaterManagementService> _logger;
+
         private readonly IVersionSource _versionSource;
         private readonly ICurrentVersionDeterminer _currentVersionDeterminer;
+        private readonly IApplicationCloser _applicationCloser;
+
         private readonly IUserInteraction[] _userInteractions;
         private readonly IUpdatePreparationStep[] _prepareSteps;
+
         private readonly UpdaterManagementServiceCheckStrategy _updaterCheckStrategy;
         private readonly SemaphoreSlim _semaphore;
 
         public bool IsActive => _semaphore.CurrentCount <= 0;
 
-        public UpdaterManagementService(UpdaterManagementServiceConfiguration configuration)
+        public UpdaterManagementService(ILoggerFactory loggerFactory,
+                                        UpdaterManagementServiceConfiguration configuration)
         {
+            _logger = loggerFactory.CreateLogger<UpdaterManagementService>();
             _semaphore = new SemaphoreSlim(1, 1);
 
             _versionSource = configuration.VersionSource;
             _currentVersionDeterminer = configuration.CurrentVersionDeterminer;
+            _applicationCloser = configuration.ApplicationCloser;
             _userInteractions = configuration.UserInteraction.ToArray();
             _prepareSteps = configuration.UpdatePreparationSteps.ToArray();
 
@@ -40,9 +49,13 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
         public Task<IUpdateVersionHandle> SearchVersion()
         {
+            _logger.LogTrace("Starting searching new version was triggerd. Waiting other operation finished");
             _semaphore.Wait();
+            _logger.LogTrace("Lock accuired. Starting searching task");
+
             return Task.Factory.StartNew(() =>
             {
+                _logger.LogInformation("Starting searching new version");
                 try
                 {
                     IUpdateVersionHandle handle = new UpdateVersionHandle(null, this);
@@ -50,11 +63,13 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
                     if (versions.Any())
                     {
+                        _logger.LogDebug("Available version: {0}", string.Join(Environment.NewLine, versions.Select(x => x.ToString())));
                         var currentVersion = _currentVersionDeterminer.DetermineCurrentVersionNumber();
                         var latestVersion = versions.OrderByDescending(x => x.VersionNumber).First();
 
                         if (currentVersion < latestVersion.VersionNumber)
                         {
+                            _logger.LogInformation("New version found. Latest [{0}] Current [{1}]", latestVersion, currentVersion);
                             handle = new UpdateVersionHandle(latestVersion, this);
 
                             foreach (var userInteraction in _userInteractions)
@@ -62,12 +77,26 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                                 userInteraction.NewVersionAvailable(handle);
                             }
                         }
+                        else
+                        {
+                            _logger.LogInformation("No new version found. Latest [{0}] Current [{1}]", latestVersion, currentVersion);
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogInformation("No versions found");
                     }
 
                     return handle;
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error during searching new version occurred");
+                    throw;
+                }
                 finally
                 {
+                    _logger.LogTrace("Releasing lock. Searching new version");
                     _semaphore.Release();
                 }
             });
@@ -77,19 +106,35 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
         {
             if (!handle.HasNewVersion) return;
 
-            var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
-            updateFolder.Create();
+            _logger.LogTrace("Starting update to version [{0}]. Waiting other operation finished", handle.NewVersion);
+            _semaphore.Wait();
+            _logger.LogTrace("Lock accuired. Starting update");
 
-            var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder);
-            var executorConfiguration = new ExecutorConfiguration();
+            try
+            {
+                _logger.LogInformation("Update to version [{0}] started", handle.NewVersion);
 
-            executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
-                                                       .ToArray();
+                var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+                updateFolder.Create();
+                _logger.LogDebug("Creating working folder '{0}'", updateFolder.FullName);
 
-            CopyAndStartExecutor(workspace, executorConfiguration);
+                var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder);
+                var executorConfiguration = new ExecutorConfiguration();
 
-            System.Environment.Exit(0);
-            //TODO Shutdown current application
+                executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
+                                                           .ToArray();
+
+                _logger.LogDebug("Copy update executor application to working folder");
+                CopyAndStartExecutor(workspace, executorConfiguration);
+
+                _logger.LogDebug("Executor started. Closing current application");
+                _applicationCloser.CloseApplication();
+            }
+            finally
+            {
+                _logger.LogTrace("Releasing lock. Updating");
+                _semaphore.Release();
+            }
         }
 
         private void CopyAndStartExecutor(UpdatePreparationWorkspaceInformation workspace,
@@ -121,10 +166,10 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                 throw new NotImplementedException("Other platforms than Windows currently not supported");
             }
 
-            var path = "AutoUpdate.Core.Executor.ExecutorWin86.zip";
+            var path = "AutoUpdate.Core.Executors.ExecutorWin86.zip";
             if (Environment.Is64BitOperatingSystem)
             {
-                path = "AutoUpdate.Core.Executor.ExecutorWin64.zip";
+                path = "AutoUpdate.Core.Executors.ExecutorWin64.zip";
             }
             return GetType().Assembly.GetManifestResourceStream(path);
         }
@@ -140,6 +185,9 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
             public UpdaterManagementServiceCheckStrategy Handle(UpdaterOneTimeCheckIntervalConfiguration updaterOneTimeCheckIntervalConfiguration)
                 => new UpdaterManagementServiceOneTimeCheckStrategy(_service);
+
+            public UpdaterManagementServiceCheckStrategy Handle(UpdaterManualCheckIntervalConfiguration configuration)
+                => new UpdaterManagementServiceManualCheckStrategy(_service);
         }
     }
 }
