@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\ExecutorWin64.zip" Link="Excutors\ExecutorWin64.zip" />
-    <EmbeddedResource Include="..\ExecutorWin86.zip" Link="Excutors\ExecutorWin86.zip" />
+    <EmbeddedResource Include="..\ExecutorWin64.zip" Link="Executors\ExecutorWin64.zip" />
+    <EmbeddedResource Include="..\ExecutorWin86.zip" Link="Executors\ExecutorWin86.zip" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Excutors\" />
+    <Folder Include="Executors\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

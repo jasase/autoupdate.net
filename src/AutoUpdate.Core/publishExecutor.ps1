@@ -18,7 +18,7 @@ if(Test-Path "..\ExecutorWin86.zip")
 }
 
 dotnet publish "..\AutoUpdate.Executor\AutoUpdate.Executor.csproj" -c $configuration -r win-x64 -o "publish/ExecutorWin64" --no-restore
-Compress-Archive "..\AutoUpdate.Executor\publish\ExecutorWin64" -DestinationPath "..\ExecutorWin64.zip"
+Compress-Archive (Get-ChildItem "..\AutoUpdate.Executor\publish\ExecutorWin64" | Select-Object -ExpandProperty FullName ) -DestinationPath "..\ExecutorWin64.zip"
 
 dotnet publish "..\AutoUpdate.Executor\AutoUpdate.Executor.csproj" -c $configuration -r win-x86 -o "publish/ExecutorWin86" --no-restore
-Compress-Archive "..\AutoUpdate.Executor\publish\ExecutorWin86" -DestinationPath "..\ExecutorWin86.zip"
+Compress-Archive (Get-ChildItem "..\AutoUpdate.Executor\publish\ExecutorWin86" | Select-Object -ExpandProperty FullName ) -DestinationPath "..\ExecutorWin86.zip"

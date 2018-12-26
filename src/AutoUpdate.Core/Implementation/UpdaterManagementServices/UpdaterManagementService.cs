@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoUpdate.Core.Abstraction;
@@ -85,21 +87,46 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                                                        .ToArray();
 
             CopyAndStartExecutor(workspace, executorConfiguration);
+
+            System.Environment.Exit(0);
+            //TODO Shutdown current application
         }
 
         private void CopyAndStartExecutor(UpdatePreparationWorkspaceInformation workspace,
                                           ExecutorConfiguration config)
         {
-            var executorFile = new FileInfo(Path.Combine(workspace.WorkingDirectory.FullName, "Executor.exe"));
-            using (var executorStream = GetType().Assembly.GetManifestResourceStream("AutoUpdate.Core.AutoUpdate.Executor.dll"))
-            using (var destStream = executorFile.OpenWrite())
+            var executorDirectory = Path.Combine(workspace.WorkingDirectory.FullName, "Executor");
+            var executorFile = new FileInfo(Path.Combine(executorDirectory, "AutoUpdate.Executor.exe"));
+
+            using (var executorStream = GetExecutorStream())
             {
-                executorStream.CopyTo(destStream);
+                var archive = new ZipArchive(executorStream);
+                archive.ExtractToDirectory(executorDirectory);
             }
 
-            var startInfo = new ProcessStartInfo("dotnet", executorFile.FullName);
+            executorFile.Refresh();
+            if (!executorFile.Exists)
+            {
+                throw new InvalidOperationException("Preparation of executor helper was not successfull");
+            }
 
+            var startInfo = new ProcessStartInfo(executorFile.FullName);
             var result = Process.Start(startInfo);
+        }
+
+        private Stream GetExecutorStream()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                throw new NotImplementedException("Other platforms than Windows currently not supported");
+            }
+
+            var path = "AutoUpdate.Core.Executor.ExecutorWin86.zip";
+            if (Environment.Is64BitOperatingSystem)
+            {
+                path = "AutoUpdate.Core.Executor.ExecutorWin64.zip";
+            }
+            return GetType().Assembly.GetManifestResourceStream(path);
         }
 
         class SelectStrategyVisitor : IUpdaterCheckIntervalConfigurationVisitor<UpdaterManagementServiceCheckStrategy>

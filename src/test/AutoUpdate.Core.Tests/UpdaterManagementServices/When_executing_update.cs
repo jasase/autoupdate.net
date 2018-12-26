@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutoUpdate.Core.Tests.UpdaterManagementServices
 {
-    [TestClass]
+    [TestClass,Ignore]
     public class When_executing_update : SpecificationForUpdaterManagementService
     {
 
