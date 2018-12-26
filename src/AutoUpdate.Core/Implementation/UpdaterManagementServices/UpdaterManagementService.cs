@@ -3,12 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
-using AutoUpdate.Core.Model.Executor;
+using AutoUpdate.Shared;
+using AutoUpdate.Shared.Configurations;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
@@ -123,6 +125,8 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
                 executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
                                                            .ToArray();
+                executorConfiguration.Application.Path = Assembly.GetCallingAssembly().Location;
+                executorConfiguration.Application.CallingProcessId = Process.GetCurrentProcess().Id;
 
                 _logger.LogDebug("Copy update executor application to working folder");
                 CopyAndStartExecutor(workspace, executorConfiguration);
@@ -155,7 +159,17 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                 throw new InvalidOperationException("Preparation of executor helper was not successfull");
             }
 
-            var startInfo = new ProcessStartInfo(executorFile.FullName);
+            var serializer = new ConfigurationSerializer();
+            var serializedConfig = serializer.Serialize(config);
+
+            var configFile = new FileInfo(Path.Combine(executorDirectory, "config.xml"));
+            using (var configFileStream = configFile.OpenWrite())
+            using (var configFileWriter = new StreamWriter(configFileStream))
+            {
+                configFileWriter.Write(serializedConfig);
+            }
+
+            var startInfo = new ProcessStartInfo(executorFile.FullName, configFile.FullName);
             var result = Process.Start(startInfo);
         }
 

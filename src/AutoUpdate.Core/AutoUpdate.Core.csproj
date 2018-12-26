@@ -27,6 +27,10 @@
     <Folder Include="Executors\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AutoUpdate.Shared\AutoUpdate.Shared.csproj" />
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="powershell.exe -ExecutionPolicy ByPass -File publishExecutor.ps1 &quot;$(ConfigurationName)&quot;" />
   </Target>

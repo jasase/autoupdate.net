@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoUpdate.Core.Model;
-using AutoUpdate.Core.Model.Executor;
+using AutoUpdate.Shared.Configurations;
 
 namespace AutoUpdate.Core.Abstraction
 {
