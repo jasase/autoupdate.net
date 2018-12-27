@@ -57,6 +57,12 @@ namespace AutoUpdate.Core.Implementation.Builders
             return this;
         }
 
+        public UpdateBuilder AddUpdatePreparationStep(IUpdatePreparationStep updatePreparationStep)
+        {
+            _configuration.UpdatePreparationSteps.Add(updatePreparationStep);
+            return this;
+        }
+
         public IUpdaterManagementService Build()
         {
             var validateMessage = _configuration.Validate();

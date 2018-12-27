@@ -5,14 +5,25 @@ namespace AutoUpdate.TestApplication
 {
     public class MockVersionSource : IVersionSource
     {
-        public Core.Model.Version[] LoadAvailableVersions()
-            => new Core.Model.Version[]
+        private readonly string _updateFile;
+
+        public MockVersionSource(string updateFile)
+        {
+            _updateFile = updateFile;
+        }
+
+        public Version[] LoadAvailableVersions()
+            => new Version[]
             {
-                new Core.Model.Version
+                new Version
                 {
                     ChangeLog = "N/A",
                     Mandatory = true,
-                    Source = null,
+                    Source = new FileVersionDownloadSource()
+                    {
+                        FilePath = _updateFile,
+                        IsZipFile = true
+                    },
                     VersionNumber = new VersionNumber(9, 9, 9, 9)
                 }
             };

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Core.Implementation.Downloaders;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using AutoUpdate.Shared;
 using AutoUpdate.Shared.Configurations;
@@ -117,11 +118,18 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                 _logger.LogInformation("Update to version [{0}] started", handle.NewVersion);
 
                 var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "AutoUpdate.Net", Guid.NewGuid().ToString()));
-                updateFolder.Create();
                 _logger.LogDebug("Creating working folder '{0}'", updateFolder.FullName);
+                updateFolder.Create();
 
-                var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder);
+                var artifactsFolder = new DirectoryInfo(Path.Combine(updateFolder.FullName, "Artifacts"));
+                _logger.LogDebug("Creating artifacts folder '{0}'", artifactsFolder.FullName);
+                artifactsFolder.Create();
+
+                var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder, artifactsFolder);
                 var executorConfiguration = new ExecutorConfiguration();
+
+                var downloader = handle.NewVersion.Source.Accept(new DownloaderFactory());
+                downloader.Download(workspace);
 
                 executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
                                                            .ToArray();
@@ -171,6 +179,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
             var startInfo = new ProcessStartInfo(executorFile.FullName, configFile.FullName);
             startInfo.WorkingDirectory = executorDirectory;
+            startInfo.UseShellExecute = false;
             var result = Process.Start(startInfo);
         }
 

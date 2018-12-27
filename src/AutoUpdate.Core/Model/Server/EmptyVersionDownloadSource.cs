@@ -1,11 +1,7 @@
-﻿namespace AutoUpdate.Core.Model
+﻿namespace AutoUpdate.Core.Model.Server
 {
-    public class HttpVersionDownloadSource : VersionDownloadSource
+    public class EmptyVersionDownloadSource : VersionDownloadSource
     {
-        public string Url { get; set; }
-        public bool IsZipFile { get; internal set; }
-        public string FileName { get; internal set; }
-
         public override void Accept(IVersionDownloadSourceVisitor visitor)
             => visitor.Handle(this);
 

@@ -46,18 +46,18 @@ namespace AutoUpdate.Executor
                 return -2;
             }
 
-            var i = 15;
-
-            while (true)
+            _logger.LogInformation("Executing update steps");
+            var factory = new ExecutorStepFactory(LoggerFactory);
+            foreach (var stepConfiguration in config.Steps)
             {
-                Thread.Sleep(1000);
-                Console.WriteLine("Hello World! " + i);
-
-                if (--i < 0)
-                {
-                    return 0;
-                }
+                _logger.LogDebug("Executing step '{0}'", stepConfiguration.GetType().FullName);
+                var step = stepConfiguration.Accept(factory);
+                step.Execute();
             }
+
+            //TODO Restart old application
+
+            return 0;
         }
 
         static ExecutorConfiguration ReadConfig(string[] args)
@@ -95,11 +95,11 @@ namespace AutoUpdate.Executor
             var parentProcess = Process.GetProcessById(configuration.Application.CallingProcessId);
             if (parentProcess == null)
             {
-                _logger.LogDebug("Parent process '{0}' not found. Continue", configuration.Application.CallingProcessId);
+                _logger.LogDebug("Parent process with id '{0}' not found. Continue", configuration.Application.CallingProcessId);
                 return true;
             }
 
-            _logger.LogDebug("Parent process '{0}' | '{1}' found.", parentProcess.Id, parentProcess.ProcessName);
+            _logger.LogDebug("Parent process found.");
             var waitCounter = 0;
             while (!parentProcess.HasExited)
             {
@@ -109,7 +109,7 @@ namespace AutoUpdate.Executor
                     return false;
                 }
 
-                _logger.LogTrace("Parent process still running. Waiting. Count {0}", waitCounter);
+                _logger.LogTrace("Parent process with id '{1}' still running. Waiting. Count {0}", waitCounter, parentProcess.Id);
                 Thread.Sleep(1000);
                 waitCounter++;
             }
