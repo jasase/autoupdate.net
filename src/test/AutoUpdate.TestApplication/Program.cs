@@ -12,9 +12,9 @@ namespace AutoUpdate.TestApplication
     {
         static void Main(string[] args)
         {
-            while (!Debugger.IsAttached)
+            if (!Debugger.IsAttached)
             {
-                Thread.Sleep(250);
+                Debugger.Launch();
             }
 
             Console.WriteLine("Hello World!");

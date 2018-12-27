@@ -55,9 +55,17 @@ namespace AutoUpdate.Executor
                 step.Execute();
             }
 
-            //TODO Restart old application
+            _logger.LogInformation("Restarting parent application");
+            RestartingApplication(config);
 
             return 0;
+        }
+
+        static void RestartingApplication(ExecutorConfiguration configuration)
+        {
+            _logger.LogInformation("Restarting parent application: Path: '{0}' Arguments: '{1}'", configuration.Application.Path, configuration.Application.RestartArguments);
+            var startInfo = new ProcessStartInfo(configuration.Application.Path, configuration.Application.RestartArguments);
+            Process.Start(startInfo);
         }
 
         static ExecutorConfiguration ReadConfig(string[] args)

@@ -133,7 +133,10 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
                 executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
                                                            .ToArray();
-                executorConfiguration.Application.Path = Assembly.GetCallingAssembly().Location;
+
+                var curProcess = Process.GetCurrentProcess();
+                executorConfiguration.Application.Path = curProcess.MainModule.FileName;
+                executorConfiguration.Application.RestartArguments = Environment.CommandLine;
                 executorConfiguration.Application.CallingProcessId = Process.GetCurrentProcess().Id;
 
                 _logger.LogDebug("Copy update executor application to working folder");
