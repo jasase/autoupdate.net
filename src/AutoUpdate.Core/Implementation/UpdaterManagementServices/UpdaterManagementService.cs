@@ -116,7 +116,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
             {
                 _logger.LogInformation("Update to version [{0}] started", handle.NewVersion);
 
-                var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+                var updateFolder = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "AutoUpdate.Net", Guid.NewGuid().ToString()));
                 updateFolder.Create();
                 _logger.LogDebug("Creating working folder '{0}'", updateFolder.FullName);
 
@@ -162,7 +162,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
             var serializer = new ConfigurationSerializer();
             var serializedConfig = serializer.Serialize(config);
 
-            var configFile = new FileInfo(Path.Combine(executorDirectory, "config.xml"));
+            var configFile = new FileInfo(Path.Combine(executorDirectory, ExecutorConfiguration.DEFAULT_FILENAME));
             using (var configFileStream = configFile.OpenWrite())
             using (var configFileWriter = new StreamWriter(configFileStream))
             {
@@ -170,6 +170,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
             }
 
             var startInfo = new ProcessStartInfo(executorFile.FullName, configFile.FullName);
+            startInfo.WorkingDirectory = executorDirectory;
             var result = Process.Start(startInfo);
         }
 

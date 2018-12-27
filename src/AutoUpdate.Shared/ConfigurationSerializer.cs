@@ -15,25 +15,18 @@ namespace AutoUpdate.Shared
 
         public string Serialize(ExecutorConfiguration configuration)
         {
-            using (var stream = new MemoryStream())
-            using (var reader = new StreamReader(stream))
+            using (var writer = new StringWriter())
             {
-                _serializer.Serialize(stream, configuration);
-                stream.Position = 0;
-
-                return reader.ReadToEnd();
+                _serializer.Serialize(writer, configuration);
+                return writer.GetStringBuilder().ToString();
             }
         }
 
         public ExecutorConfiguration Deserialize(string configuration)
         {
-            using (var stream = new MemoryStream())
-            using (var writer = new StreamWriter(stream))
+            using (var reader = new StringReader(configuration))
             {
-                writer.Write(configuration);
-                stream.Position = 0;
-
-                return _serializer.Deserialize(stream) as ExecutorConfiguration;
+                return _serializer.Deserialize(reader) as ExecutorConfiguration;
             }
         }
     }
