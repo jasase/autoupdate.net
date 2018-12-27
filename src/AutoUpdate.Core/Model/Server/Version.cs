@@ -13,5 +13,8 @@
             Mandatory = true;
             VersionNumber = new VersionNumber();
         }
+
+        public override string ToString()
+            => $"{VersionNumber} - {ChangeLog}";
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoUpdate.Core.Abstraction;
+﻿using System;
+using AutoUpdate.Core.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,12 @@ namespace AutoUpdate.Core.Implementation.Builders
             return this;
         }
 
+        public UpdateBuilder ConfigureManualCheck()
+        {
+            _configuration.CheckInterval = new UpdaterManualCheckIntervalConfiguration();
+            return this;
+        }
+
         //public UpdateBuilder ConfigureIntervalCheck()
         //{
         //    _configuration.CheckInterval = new UpdaterPeriodCheckIntervalConfiguration();
@@ -50,7 +57,20 @@ namespace AutoUpdate.Core.Implementation.Builders
             return this;
         }
 
+        public UpdateBuilder AddUpdatePreparationStep(IUpdatePreparationStep updatePreparationStep)
+        {
+            _configuration.UpdatePreparationSteps.Add(updatePreparationStep);
+            return this;
+        }
+
         public IUpdaterManagementService Build()
-            => new UpdaterManagementService(_configuration);
+        {
+            var validateMessage = _configuration.Validate();
+            if (!validateMessage.Valid)
+            {
+                throw new InvalidOperationException("Configuration is not valid: " + validateMessage.Error);
+            }
+            return new UpdaterManagementService(LoggerFactory, _configuration);
+        }
     }
 }

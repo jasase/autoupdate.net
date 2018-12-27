@@ -19,6 +19,6 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
         public Model.Version NewVersion => _version;
 
         public void UpdateToNewVersion()
-            => throw new NotImplementedException();
+            => _updaterManagementService.UpdateVersion(this);
     }
 }

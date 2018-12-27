@@ -2,6 +2,8 @@
 {
     public interface IUpdaterCheckIntervalConfigurationVisitor<TReturn>
     {
-        TReturn Handle(UpdaterOneTimeCheckIntervalConfiguration updaterOneTimeCheckIntervalConfiguration);
+        TReturn Handle(UpdaterOneTimeCheckIntervalConfiguration configuration);
+
+        TReturn Handle(UpdaterManualCheckIntervalConfiguration configuration);
     }
 }

@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28306.52
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.Core", "AutoUpdate.Core\AutoUpdate.Core.csproj", "{5C7975AE-D120-441F-968E-8150FE4F6C71}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD} = {18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72D863C8-D986-47F8-9355-DBD5B24AC2EE}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +19,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.Core.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.TestCore", "test\AutoUpdate.TestCore\AutoUpdate.TestCore.csproj", "{68D42CD9-01F7-45D8-80F8-8F57676617EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate.TestMock.Assembly", "test\AutoUpdate.TestMock.Assembly\AutoUpdate.TestMock.Assembly.csproj", "{13682A5D-365E-4AAC-9A53-73462C846C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.TestMock.Assembly", "test\AutoUpdate.TestMock.Assembly\AutoUpdate.TestMock.Assembly.csproj", "{13682A5D-365E-4AAC-9A53-73462C846C54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.Executor", "AutoUpdate.Executor\AutoUpdate.Executor.csproj", "{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.TestApplication", "test\AutoUpdate.TestApplication\AutoUpdate.TestApplication.csproj", "{4E230859-75E8-42FD-AFD6-C327BE862721}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD} = {18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpdate.Shared", "AutoUpdate.Shared\AutoUpdate.Shared.csproj", "{20882202-A25A-48E3-B687-02792435A704}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +52,18 @@ Global
 		{13682A5D-365E-4AAC-9A53-73462C846C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13682A5D-365E-4AAC-9A53-73462C846C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13682A5D-365E-4AAC-9A53-73462C846C54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A8B8FF-B84A-4435-95A4-A3A7AF9E84CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E230859-75E8-42FD-AFD6-C327BE862721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E230859-75E8-42FD-AFD6-C327BE862721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E230859-75E8-42FD-AFD6-C327BE862721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E230859-75E8-42FD-AFD6-C327BE862721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20882202-A25A-48E3-B687-02792435A704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20882202-A25A-48E3-B687-02792435A704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20882202-A25A-48E3-B687-02792435A704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20882202-A25A-48E3-B687-02792435A704}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +72,7 @@ Global
 		{C8F7D448-B4E1-45F1-89E1-E71673B45061} = {84E82588-C871-4AE0-954E-748D3D05BC91}
 		{68D42CD9-01F7-45D8-80F8-8F57676617EE} = {84E82588-C871-4AE0-954E-748D3D05BC91}
 		{13682A5D-365E-4AAC-9A53-73462C846C54} = {84E82588-C871-4AE0-954E-748D3D05BC91}
+		{4E230859-75E8-42FD-AFD6-C327BE862721} = {84E82588-C871-4AE0-954E-748D3D05BC91}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {602B28DF-4087-4E4E-8344-25EE5AB60425}
