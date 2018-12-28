@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/jasase/autoupdate.net</PackageProjectUrl>
     <PackageTags>Autoupdate</PackageTags>
     <PackageId>AutoUpdate.Net.Core</PackageId>
+    <Description>AutoUpdate.Net a full extensiable framework for auto updating .Net application</Description>
   </PropertyGroup>
 
   <ItemGroup>

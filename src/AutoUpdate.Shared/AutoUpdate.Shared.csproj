@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Sascha Sternheim</Authors>
+    <Company>Sascha Sternheim</Company>
+    <PackageId>AutoUpdate.Net.Shared</PackageId>
+    <Description>AutoUpdate.Net a full extensiable framework for auto updating .Net application</Description>
+    <PackageLicenseUrl>https://github.com/jasase/autoupdate.net</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jasase/autoupdate.net</PackageProjectUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>Autoupdate</PackageTags>
   </PropertyGroup>
 
 </Project>
