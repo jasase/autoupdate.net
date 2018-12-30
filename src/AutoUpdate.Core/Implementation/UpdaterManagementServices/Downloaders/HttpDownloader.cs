@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.IO.Compression;
 using System.Net;
-using AutoUpdate.Core.Abstraction;
-using AutoUpdate.Core.Model;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 
 namespace AutoUpdate.Core.Implementation.Downloaders
 {

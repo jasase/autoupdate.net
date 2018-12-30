@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using AutoUpdate.Core.Abstraction;
-using AutoUpdate.Core.Model;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 
 namespace AutoUpdate.Core.Implementation.CurrentVersionDeterminers
 {

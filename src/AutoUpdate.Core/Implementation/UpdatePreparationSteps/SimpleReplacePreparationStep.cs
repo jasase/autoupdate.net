@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AutoUpdate.Core.Abstraction;
-using AutoUpdate.Shared.Configurations;
-using AutoUpdate.Shared.Configurations.Steps;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Configurations;
+using AutoUpdate.Abstraction.Configurations.Steps;
 
 namespace AutoUpdate.Core.Implementation.UpdatePreparationSteps
 {

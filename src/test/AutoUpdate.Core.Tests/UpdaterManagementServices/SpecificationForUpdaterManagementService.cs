@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using AutoUpdate.Core.Implementation.Builders;
 using AutoUpdate.TestCore;
 using AutoUpdate.TestCore.Modules;

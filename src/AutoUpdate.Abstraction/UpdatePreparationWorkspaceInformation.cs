@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using AutoUpdate.Core.Model;
+using AutoUpdate.Abstraction.Model;
 
-namespace AutoUpdate.Core.Abstraction
+namespace AutoUpdate.Abstraction
 {
     public class UpdatePreparationWorkspaceInformation
     {

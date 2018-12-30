@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using AutoUpdate.Abstraction.Configurations;
 using AutoUpdate.Shared;
-using AutoUpdate.Shared.Configurations;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Executor

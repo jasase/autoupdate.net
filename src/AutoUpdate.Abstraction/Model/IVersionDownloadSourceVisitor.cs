@@ -1,6 +1,4 @@
-﻿using AutoUpdate.Core.Model.Server;
-
-namespace AutoUpdate.Core.Model
+﻿namespace AutoUpdate.Abstraction.Model
 {
     public interface IVersionDownloadSourceVisitor
     {

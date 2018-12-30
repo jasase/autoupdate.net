@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AutoUpdate.Core.Abstraction
+namespace AutoUpdate.Abstraction
 {
     public interface IUpdaterManagementService
     {

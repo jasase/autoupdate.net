@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using AutoUpdate.Core.Implementation.VersionParsers;
 using AutoUpdate.Core.Implementation.VersionSources;
 

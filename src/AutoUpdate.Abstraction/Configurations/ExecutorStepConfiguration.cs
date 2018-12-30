@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
-using AutoUpdate.Shared.Configurations.Steps;
+using AutoUpdate.Abstraction.Configurations.Steps;
 
-namespace AutoUpdate.Shared.Configurations
+namespace AutoUpdate.Abstraction.Configurations
 {
     [XmlInclude(typeof(ExchangeFilesStepConfiguration))]
     public abstract class ExecutorStepConfiguration

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.VersionSources

@@ -1,4 +1,4 @@
-﻿namespace AutoUpdate.Core.Model.Server
+﻿namespace AutoUpdate.Abstraction.Model
 {
     public class EmptyVersionDownloadSource : VersionDownloadSource
     {

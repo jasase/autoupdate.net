@@ -1,6 +1,6 @@
-﻿using AutoUpdate.Shared.Configurations.Steps;
+﻿using AutoUpdate.Abstraction.Configurations.Steps;
 
-namespace AutoUpdate.Shared.Configurations
+namespace AutoUpdate.Abstraction.Configurations
 {
     public interface IExecutorStepConfigurationVisitor
     {

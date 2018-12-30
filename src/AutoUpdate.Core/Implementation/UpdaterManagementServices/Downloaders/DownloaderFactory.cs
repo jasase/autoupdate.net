@@ -1,5 +1,4 @@
-﻿using AutoUpdate.Core.Model;
-using AutoUpdate.Core.Model.Server;
+﻿using AutoUpdate.Abstraction.Model;
 
 namespace AutoUpdate.Core.Implementation.Downloaders
 {

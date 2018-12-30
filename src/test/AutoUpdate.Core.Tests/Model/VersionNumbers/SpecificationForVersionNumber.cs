@@ -1,4 +1,4 @@
-﻿using AutoUpdate.Core.Model;
+﻿using AutoUpdate.Abstraction.Model;
 using AutoUpdate.TestCore;
 using FluentAssertions;
 

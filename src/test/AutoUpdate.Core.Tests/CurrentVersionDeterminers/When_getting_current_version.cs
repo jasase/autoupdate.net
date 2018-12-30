@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoUpdate.Abstraction.Model;
 using AutoUpdate.Core.Implementation.CurrentVersionDeterminers;
-using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
 using AutoUpdate.TestMock.Assembly;
 using FluentAssertions;

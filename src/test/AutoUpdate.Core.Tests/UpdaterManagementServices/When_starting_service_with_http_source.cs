@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using AutoUpdate.Abstraction.Model;
 using AutoUpdate.Core.Implementation.Builders;
-using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore.Modules;
 using AutoUpdate.TestMock.Assembly;
 using FluentAssertions;

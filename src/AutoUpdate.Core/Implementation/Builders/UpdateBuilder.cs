@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using Microsoft.Extensions.Logging;

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 using AutoUpdate.Core.Implementation.VersionParsers;
-using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
 
 namespace AutoUpdate.Core.Tests.Parsers.Xml

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.VersionSources
@@ -18,10 +18,10 @@ namespace AutoUpdate.Core.Implementation.VersionSources
             _parser = parser;
         }
 
-        public Model.Version[] LoadAvailableVersions()
+        public Abstraction.Model.Version[] LoadAvailableVersions()
         {
             Stream data = null;
-            var result = new Model.Version[0];
+            var result = new Abstraction.Model.Version[0];
             try
             {
                 data = GetContentStream();

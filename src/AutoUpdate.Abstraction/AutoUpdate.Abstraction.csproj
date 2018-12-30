@@ -2,19 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>AutoUpdate.Net.Abstraction</PackageId>
     <Authors>Sascha Sternheim</Authors>
-    <Company>Sascha Sternheim</Company>
-    <PackageId>AutoUpdate.Net.Shared</PackageId>
-    <Description>AutoUpdate.Net a full extensiable framework for auto updating .Net application</Description>
+    <Product>AutoUpdate.Net</Product>
     <PackageLicenseUrl>https://github.com/jasase/autoupdate.net</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jasase/autoupdate.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jasase/autoupdate.net</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Autoupdate</PackageTags>
-    <Product>AutoUpdate.Net</Product>
+    <Description>AutoUpdate.Net a full extensiable framework for auto updating .Net application</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AutoUpdate.Abstraction\AutoUpdate.Abstraction.csproj" />
-  </ItemGroup>
 
 </Project>

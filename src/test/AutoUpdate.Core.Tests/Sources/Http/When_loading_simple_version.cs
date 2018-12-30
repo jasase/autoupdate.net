@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AutoUpdate.Core.Model;
+using AutoUpdate.Abstraction.Model;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

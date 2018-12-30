@@ -13,6 +13,7 @@
     <PackageTags>Autoupdate</PackageTags>
     <PackageId>AutoUpdate.Net.Core</PackageId>
     <Description>AutoUpdate.Net a full extensiable framework for auto updating .Net application</Description>
+    <Product>AutoUpdate.Net</Product>
   </PropertyGroup>
 
   <ItemGroup>

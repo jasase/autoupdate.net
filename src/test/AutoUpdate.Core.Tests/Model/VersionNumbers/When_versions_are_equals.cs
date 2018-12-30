@@ -1,4 +1,4 @@
-﻿using AutoUpdate.Core.Model;
+﻿using AutoUpdate.Abstraction.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutoUpdate.Core.Tests.Model.VersionNumbers

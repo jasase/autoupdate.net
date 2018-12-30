@@ -1,4 +1,4 @@
-﻿namespace AutoUpdate.Shared.Configurations.Steps
+﻿namespace AutoUpdate.Abstraction.Configurations.Steps
 {
     public class ExchangeFilesStepConfiguration : ExecutorStepConfiguration
     {

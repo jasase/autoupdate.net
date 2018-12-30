@@ -1,4 +1,4 @@
-﻿namespace AutoUpdate.Core.Abstraction
+﻿namespace AutoUpdate.Abstraction
 {
     public interface IUserInteraction
     {

@@ -1,7 +1,7 @@
 ﻿using System;
+using AutoUpdate.Abstraction.Configurations;
+using AutoUpdate.Abstraction.Configurations.Steps;
 using AutoUpdate.Executor.Steps;
-using AutoUpdate.Shared.Configurations;
-using AutoUpdate.Shared.Configurations.Steps;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Executor

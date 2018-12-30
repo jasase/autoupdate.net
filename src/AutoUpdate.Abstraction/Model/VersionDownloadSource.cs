@@ -1,4 +1,4 @@
-﻿namespace AutoUpdate.Core.Model
+﻿namespace AutoUpdate.Abstraction.Model
 {
     public abstract class VersionDownloadSource
     {

@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Configurations;
 using AutoUpdate.Core.Implementation.Downloaders;
 using AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations;
 using AutoUpdate.Shared;
-using AutoUpdate.Shared.Configurations;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices

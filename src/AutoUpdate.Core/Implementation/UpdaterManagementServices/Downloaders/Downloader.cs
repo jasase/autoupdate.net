@@ -1,4 +1,4 @@
-﻿using AutoUpdate.Core.Abstraction;
+﻿using AutoUpdate.Abstraction;
 
 namespace AutoUpdate.Core.Implementation.Downloaders
 {

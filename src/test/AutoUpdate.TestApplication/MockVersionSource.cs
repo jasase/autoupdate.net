@@ -1,5 +1,6 @@
-﻿using AutoUpdate.Core.Abstraction;
-using AutoUpdate.Core.Model;
+﻿
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 
 namespace AutoUpdate.TestApplication
 {

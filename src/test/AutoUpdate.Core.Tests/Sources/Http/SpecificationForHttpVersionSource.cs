@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 using AutoUpdate.Core.Implementation.VersionParsers;
 using AutoUpdate.Core.Implementation.VersionSources;
-using AutoUpdate.Core.Model;
 using AutoUpdate.TestCore;
 using AutoUpdate.TestCore.Modules;
 using Microsoft.Extensions.Logging;

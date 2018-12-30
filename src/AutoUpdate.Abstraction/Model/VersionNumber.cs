@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoUpdate.Core.Model
+namespace AutoUpdate.Abstraction.Model
 {
     public class VersionNumber : IComparable<VersionNumber>, IEquatable<VersionNumber>
     {

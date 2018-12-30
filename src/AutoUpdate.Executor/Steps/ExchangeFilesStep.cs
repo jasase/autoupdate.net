@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using AutoUpdate.Shared.Configurations.Steps;
+using AutoUpdate.Abstraction.Configurations.Steps;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Executor.Steps

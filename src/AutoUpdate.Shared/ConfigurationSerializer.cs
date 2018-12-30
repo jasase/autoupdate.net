@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
-using AutoUpdate.Shared.Configurations;
+using AutoUpdate.Abstraction.Configurations;
 
 namespace AutoUpdate.Shared
 {

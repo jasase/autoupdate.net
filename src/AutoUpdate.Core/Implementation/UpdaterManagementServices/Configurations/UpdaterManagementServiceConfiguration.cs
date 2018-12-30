@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoUpdate.Core.Abstraction;
+using AutoUpdate.Abstraction;
 using AutoUpdate.Core.Implementation.ApplicationClosers;
 
 namespace AutoUpdate.Core.Implementation.UpdaterManagementServices.Configurations

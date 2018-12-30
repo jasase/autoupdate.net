@@ -2,8 +2,8 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
-using AutoUpdate.Core.Abstraction;
-using AutoUpdate.Core.Model;
+using AutoUpdate.Abstraction;
+using AutoUpdate.Abstraction.Model;
 using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.VersionParsers
