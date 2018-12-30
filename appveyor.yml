@@ -7,8 +7,9 @@ before_build:
 build_script:
   - cmd: dotnet restore
   - cmd: dotnet build --configuration Release --version-suffix %APPVEYOR_REPO_COMMIT% -p:Version=%APPVEYOR_BUILD_VERSION%
-  - cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%-beta
+  - cmd: dotnet pack AutoUpdate.Abstraction\AutoUpdate.Abstraction.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%-beta
   - cmd: dotnet pack AutoUpdate.Shared\AutoUpdate.Shared.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%-beta
+  - cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION%-beta
   #- cmd: dotnet pack AutoUpdate.Core\AutoUpdate.Core.csproj --configuration Release --include-symbols --no-build -p:PackageVersion=%APPVEYOR_BUILD_VERSION% --version-suffix %APPVEYOR_REPO_COMMIT%
 
 test_script:
