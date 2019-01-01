@@ -31,6 +31,8 @@ namespace AutoUpdate.Core.Tests.UpdaterManagementServices
             {
                 module.AddContent("/version", serverContent);
             }
+            var uri = module.HttpClient.BaseAddress;
+            module.HttpClient.BaseAddress = new System.Uri(uri, "version");
 
             var builder = new UpdateBuilder();
             ConfigureBuilder(builder);

@@ -35,7 +35,7 @@ namespace AutoUpdate.TestCore.Modules
                });
 
             _server = new TestServer(builder);
-            HttpClient = _server.CreateClient();
+            HttpClient = _server.CreateClient();            
         }
 
         public void CleanUp()

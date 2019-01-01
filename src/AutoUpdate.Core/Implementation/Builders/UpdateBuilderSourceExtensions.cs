@@ -7,12 +7,6 @@ namespace AutoUpdate.Core.Implementation.Builders
 {
     public static class UpdateBuilderSourceExtensions
     {
-        //public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, string url)
-        //{
-        //    var t = 0;
-        //    return new UpdateBuilderSourceParser();
-        //}
-
         public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, IHttpClientFactory httpClientFactory)
             => new UpdateBuilderSourceParser(updateBuilder,
                                              p => new HttpVersionSource(updateBuilder.LoggerFactory,
@@ -20,11 +14,12 @@ namespace AutoUpdate.Core.Implementation.Builders
                                                                         httpClientFactory)
                                              );
 
-        //public static UpdateBuilderSourceParser UseFileSource(this UpdateBuilder updateBuilder, string url)
-        //{
-
-        //    return new UpdateBuilderSourceParser(updateBuilder, );
-        //}
+        public static UpdateBuilderSourceParser UseHttpSource(this UpdateBuilder updateBuilder, Uri uri)
+            => new UpdateBuilderSourceParser(updateBuilder,
+                                             p => new HttpVersionSource(updateBuilder.LoggerFactory,
+                                                                        p,
+                                                                        new DefaultHttpClientFactory(uri))
+                                             );
     }
 
     public class UpdateBuilderSourceParser
@@ -43,12 +38,6 @@ namespace AutoUpdate.Core.Implementation.Builders
             _updateBuilder.UseSource(_creator(new XmlVersionParser(_updateBuilder.LoggerFactory)));
             return _updateBuilder;
         }
-
-        //public UpdateBuilder UseDefaultJsonParser()
-        //{
-        //    throw new NotImplementedException();
-        //    return _updateBuilder;
-        //}
 
         public UpdateBuilder UseParser(IVersionParser versionParser)
         {
