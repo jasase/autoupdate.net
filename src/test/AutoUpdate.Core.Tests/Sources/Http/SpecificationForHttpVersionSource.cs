@@ -24,6 +24,8 @@ namespace AutoUpdate.Core.Tests.Sources.Http
             {
                 module.AddContent("/version", serverContent);
             }
+            var uri = module.HttpClient.BaseAddress;
+            module.HttpClient.BaseAddress = new System.Uri(uri, "version");
 
             var parser = new XmlVersionParser(LoggerFactory);
             Sut = new HttpVersionSource(LoggerFactory, parser, Module<HttpServerTestModule>());

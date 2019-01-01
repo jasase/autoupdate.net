@@ -20,7 +20,8 @@ namespace AutoUpdate.Core.Implementation.VersionSources
         {
             var client = _httpClientFactory.CreateClient();
 
-            var t = client.GetAsync("/version").Result;
+            var t = client.GetAsync("").Result;
+            //var t = client.GetAsync("/version").Result;
 
             return t.Content.ReadAsStreamAsync().Result;
         }

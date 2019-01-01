@@ -4,6 +4,6 @@ namespace AutoUpdate.Core.Implementation.VersionSources
 {
     public interface IHttpClientFactory
     {
-        HttpClient CreateClient();
+        HttpClient CreateClient();         
     }
 }
