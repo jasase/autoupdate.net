@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using AutoUpdate.Abstraction;
@@ -75,9 +76,19 @@ namespace AutoUpdate.Core.Implementation.VersionParsers
 
             if (sourceType == XML_SOURCE_TYPE_HTTP)
             {
+                var uri = new System.Uri(cur.SourcePath);
+                var file = "temp.dat";
+
+                if (uri.Segments.Any())
+                {
+                    file = uri.Segments.Last();
+                }
+
                 return new HttpVersionDownloadSource
                 {
-                    Url = cur.SourcePath
+                    Url = cur.SourcePath,
+                    FileName = file,
+                    IsZipFile = file.EndsWith("zip") || file.EndsWith("ZIP")
                 };
             }
             else if (sourceType == XML_SOURCE_TYPE_FILE)

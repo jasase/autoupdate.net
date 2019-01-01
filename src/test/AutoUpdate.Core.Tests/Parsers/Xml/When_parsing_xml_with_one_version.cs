@@ -27,7 +27,9 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
 
             first.Source.Should().NotBeNull();
             first.Source.Should().BeOfType<HttpVersionDownloadSource>();
-            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de");
+            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de/file.xml");
+            ((HttpVersionDownloadSource) first.Source).FileName.Should().Be("file.xml");
+            ((HttpVersionDownloadSource) first.Source).IsZipFile.Should().Be(false);
         }
 
         public override string XmlContent => @"<?xml version=""1.0"" encoding=""utf-8"" ?>
@@ -37,7 +39,7 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
     <ChangeLog>Example change log</ChangeLog>
     <Mandatory>false</Mandatory>
     <SourceType>Http</SourceType>
-    <SourcePath>http://google.de</SourcePath>
+    <SourcePath>http://google.de/file.xml</SourcePath>
   </Version>
 </ParserVersionDefinition>";
 
