@@ -3,8 +3,8 @@
     public class HttpVersionDownloadSource : VersionDownloadSource
     {
         public string Url { get; set; }
-        public bool IsZipFile { get; internal set; }
-        public string FileName { get; internal set; }
+        public bool IsZipFile { get; set; }
+        public string FileName { get; set; }
 
         public override void Accept(IVersionDownloadSourceVisitor visitor)
             => visitor.Handle(this);

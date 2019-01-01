@@ -25,7 +25,9 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
 
             first.Source.Should().NotBeNull();
             first.Source.Should().BeOfType<HttpVersionDownloadSource>();
-            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de");
+            ((HttpVersionDownloadSource) first.Source).Url.Should().Be("http://google.de/file.zip");
+            ((HttpVersionDownloadSource) first.Source).FileName.Should().Be("file.zip");
+            ((HttpVersionDownloadSource) first.Source).IsZipFile.Should().Be(true);
 
             var second = Result[1];
             second.ChangeLog.Should().Be("Example change log2");
@@ -40,6 +42,7 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
             second.Source.Should().NotBeNull();
             second.Source.Should().BeOfType<FileVersionDownloadSource>();
             ((FileVersionDownloadSource) second.Source).FilePath.Should().Be(@"C:\File\test.txt");
+            ((FileVersionDownloadSource) second.Source).IsZipFile.Should().Be(false);
         }
 
         public override string XmlContent => @"<?xml version=""1.0"" encoding=""utf-8"" ?>
@@ -49,7 +52,7 @@ namespace AutoUpdate.Core.Tests.Parsers.Xml
     <ChangeLog>Example change log</ChangeLog>
     <Mandatory>false</Mandatory>
     <SourceType>Http</SourceType>
-    <SourcePath>http://google.de</SourcePath>
+    <SourcePath>http://google.de/file.zip</SourcePath>
   </Version>
   <Version>
     <VersionNumber>6.7.8.9</VersionNumber>
