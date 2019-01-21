@@ -129,8 +129,10 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                 var executorConfiguration = new ExecutorConfiguration();
 
                 var downloader = handle.NewVersion.Source.Accept(new DownloaderFactory());
+                _logger.LogDebug("Starting download with downloader '{0}'", downloader.GetType().FullName);
                 downloader.Download(workspace);
 
+                _logger.LogDebug("Executing update prepapre steps");
                 executorConfiguration.Steps = _prepareSteps.SelectMany(x => x.Prepare(workspace))
                                                            .ToArray();
 
