@@ -2,6 +2,7 @@
 using System.IO.Compression;
 using AutoUpdate.Abstraction;
 using AutoUpdate.Abstraction.Model;
+using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.Downloaders
 {
@@ -9,7 +10,8 @@ namespace AutoUpdate.Core.Implementation.Downloaders
     {
         private readonly FileVersionDownloadSource _fileVersionDownloadSource;
 
-        public FileDownloader(FileVersionDownloadSource fileVersionDownloadSource)
+        public FileDownloader(ILoggerFactory loggerFactory, FileVersionDownloadSource fileVersionDownloadSource)
+            : base(loggerFactory)
         {
             _fileVersionDownloadSource = fileVersionDownloadSource;
         }

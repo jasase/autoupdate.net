@@ -1,5 +1,6 @@
 ﻿using AutoUpdate.Abstraction;
 using AutoUpdate.Abstraction.Model;
+using Microsoft.Extensions.Logging;
 
 namespace AutoUpdate.Core.Implementation.Downloaders
 {
@@ -7,7 +8,8 @@ namespace AutoUpdate.Core.Implementation.Downloaders
     {
         private EmptyVersionDownloadSource _downloadSource;
 
-        public EmptyDownloader(EmptyVersionDownloadSource downloadSource)
+        public EmptyDownloader(ILoggerFactory loggerFactory, EmptyVersionDownloadSource downloadSource)
+            : base(loggerFactory)
         {
             _downloadSource = downloadSource;
         }

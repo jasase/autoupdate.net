@@ -29,12 +29,14 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
 
         private readonly UpdaterManagementServiceCheckStrategy _updaterCheckStrategy;
         private readonly SemaphoreSlim _semaphore;
+        private readonly ILoggerFactory _loggerFactory;
 
         public bool IsActive => _semaphore.CurrentCount <= 0;
 
         public UpdaterManagementService(ILoggerFactory loggerFactory,
                                         UpdaterManagementServiceConfiguration configuration)
         {
+            _loggerFactory = loggerFactory;
             _logger = loggerFactory.CreateLogger<UpdaterManagementService>();
             _semaphore = new SemaphoreSlim(1, 1);
 
@@ -128,7 +130,7 @@ namespace AutoUpdate.Core.Implementation.UpdaterManagementServices
                 var workspace = new UpdatePreparationWorkspaceInformation(handle.NewVersion, updateFolder, artifactsFolder);
                 var executorConfiguration = new ExecutorConfiguration();
 
-                var downloader = handle.NewVersion.Source.Accept(new DownloaderFactory());
+                var downloader = handle.NewVersion.Source.Accept(new DownloaderFactory(_loggerFactory));
                 _logger.LogDebug("Starting download with downloader '{0}'", downloader.GetType().FullName);
                 downloader.Download(workspace);
 
